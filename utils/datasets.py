@@ -19,7 +19,7 @@ import torch.nn.functional as F
 from PIL import Image, ExifTags
 from torch.utils.data import Dataset
 from tqdm import tqdm
-import albumentations.augmentations.transforms as A
+import albumentations as A
 
 import pickle
 from copy import deepcopy
@@ -370,7 +370,8 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
                     A.RandomBrightnessContrast(p=hyp['artem_brightcontrast']),
                     A.CLAHE(p=hyp['artem_clahe']),
                     A.MedianBlur(p=hyp['artem_medianblur']),
-                    A.GaussNoise(hyp['artem_noise'], p=1.0)])
+                    A.GaussNoise(hyp['artem_noise'], p=0.5)])
+            print('using augmentations with parameters ', hyp['artem_gray'], hyp['artem_brightcontrast'], hyp['artem_clahe'], hyp['artem_medianblur'], hyp['artem_noise'])
 
         try:
             f = []  # image files
@@ -592,7 +593,7 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
             #augment_hsv(img, hgain=hyp['hsv_h'], sgain=hyp['hsv_s'], vgain=hyp['hsv_v'])
 
             # artem augmentations
-            img = self.transform_artem(img)
+            img = self.transform_artem(image=img)['image']
 
             # Apply cutouts
             # if random.random() < 0.9:
