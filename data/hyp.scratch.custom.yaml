@@ -29,3 +29,9 @@ mixup: 0.0  # image mixup (probability)
 copy_paste: 0.0  # image copy paste (probability)
 paste_in: 0.0  # image copy paste (probability), use 0 for faster training
 loss_ota: 1 # use ComputeLossOTA, use 0 for faster training
+#
+artem_gray: 1.0 # grayscale (probability)
+artem_noise: 100.0 # noise (0-level)
+artem_clahe: 0.5 # contrast (probability)
+artem_brightcontrast: 0.5 # (probability)
+artem_medianblur: 0.1     # (probability)
